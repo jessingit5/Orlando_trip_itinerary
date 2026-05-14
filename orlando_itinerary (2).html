@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Orlando Trip · May 28–31</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0A0F;
+  --card: #13131A;
+  --card2: #1C1C26;
+  --border: rgba(255,255,255,0.07);
+  --accent: #FF6B35;
+  --accent2: #7B61FF;
+  --gold: #FFB800;
+  --green: #00D48A;
+  --text: #F0EEF8;
+  --muted: #7A7890;
+  --pill: rgba(255,107,53,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; overscroll-behavior: none; }
+h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #0D0D1A 0%, #1A0A1E 50%, #0A0D1A 100%);
+  padding: 52px 20px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(123,97,255,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(255,107,53,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hotel-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 5px 12px;
+  font-size: 11px; color: var(--muted); letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+.header h1 { font-size: 32px; font-weight: 800; line-height: 1.1; margin-bottom: 6px; }
+.header h1 span { color: var(--accent); }
+.header-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.meta-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 100px; padding: 5px 11px;
+  font-size: 12px; color: var(--text);
+}
+.chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+.chip .dot.orange { background: var(--accent); }
+.chip .dot.purple { background: var(--accent2); }
+
+/* WEATHER STRIP */
+.weather-strip {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px;
+}
+.weather-icon { font-size: 22px; }
+.weather-text { flex: 1; }
+.weather-text strong { display: block; color: var(--text); }
+.weather-text span { color: var(--muted); font-size: 12px; }
+
+/* NAV TABS */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 12px;
+  display: flex; overflow-x: auto; gap: 0;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  flex-shrink: 0;
+  padding: 14px 14px;
+  background: none; border: none; border-bottom: 2px solid transparent;
+  color: var(--muted); font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap; letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* SECTIONS */
+.section { display: none; }
+.section.active { display: block; }
+
+/* OVERVIEW */
+.overview-grid { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 16px;
+}
+.stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.stat-value { font-size: 22px; font-weight: 700; font-family: 'Syne', sans-serif; }
+.stat-value.accent { color: var(--accent); }
+.stat-value.green { color: var(--green); }
+.alert-card {
+  background: rgba(255,184,0,0.08);
+  border: 1px solid rgba(255,184,0,0.2);
+  border-radius: 16px; padding: 16px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.alert-text h4 { font-size: 14px; font-weight: 600; color: var(--gold); margin-bottom: 3px; }
+.alert-text p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.section-title {
+  font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  color: var(--muted); text-transform: uppercase; letter-spacing: 1px;
+  padding: 0 20px; margin-bottom: 12px;
+}
+.uber-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 16px;
+}
+.uber-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.uber-card p { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+.uber-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: #000; color: #fff; border: none;
+  border-radius: 12px; padding: 13px 20px;
+  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; width: 100%; text-decoration: none;
+}
+.lyft-btn {
+  background: #FF00BF; color: #fff;
+}
+
+/* TIMELINE */
+.timeline-wrap { padding: 20px; }
+.day-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.day-num {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800;
+  flex-shrink: 0;
+}
+.day-info h3 { font-size: 18px; font-weight: 700; }
+.day-info p { font-size: 13px; color: var(--muted); }
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px;
+  width: 1px; background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+  opacity: 0.3;
+}
+.event { position: relative; margin-bottom: 18px; }
+.event-dot {
+  position: absolute; left: -20px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--card2); border: 2px solid var(--border);
+  transition: all 0.2s;
+}
+.event-dot.park { background: var(--accent); border-color: var(--accent); }
+.event-dot.food { background: var(--gold); border-color: var(--gold); }
+.event-dot.free { background: var(--green); border-color: var(--green); }
+.event-dot.tip { background: var(--accent2); border-color: var(--accent2); }
+.event-time { font-size: 11px; color: var(--muted); margin-bottom: 4px; letter-spacing: 0.3px; }
+.event-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 14px 16px;
+  cursor: pointer; transition: border-color 0.2s;
+}
+.event-card:active { border-color: var(--accent); }
+.event-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.event-name { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; line-height: 1.2; }
+.event-tag {
+  flex-shrink: 0;
+  font-size: 10px; padding: 3px 9px; border-radius: 100px;
+  font-weight: 600; letter-spacing: 0.3px;
+}
+.tag-park { background: rgba(255,107,53,0.15); color: var(--accent); }
+.tag-food { background: rgba(255,184,0,0.12); color: var(--gold); }
+.tag-free { background: rgba(0,212,138,0.12); color: var(--green); }
+.tag-tip { background: rgba(123,97,255,0.12); color: var(--accent2); }
+.tag-transit { background: rgba(122,120,144,0.15); color: var(--muted); }
+.event-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+.directions-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.2);
+  color: var(--accent); border-radius: 10px; padding: 8px 13px;
+  font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none;
+  transition: all 0.2s;
+}
+.directions-btn:active { background: rgba(255,107,53,0.2); }
+.uber-mini {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  color: var(--text); border-radius: 10px; padding: 8px 13px;
+  font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none;
+  margin-left: 8px;
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.pro-tip {
+  margin-top: 10px;
+  background: rgba(123,97,255,0.08); border: 1px solid rgba(123,97,255,0.15);
+  border-radius: 12px; padding: 10px 12px;
+  font-size: 12px; color: var(--muted); line-height: 1.5;
+  display: flex; gap: 8px;
+}
+.pro-tip-icon { flex-shrink: 0; color: var(--accent2); }
+.divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+/* TICKETS */
+.tickets-wrap { padding: 20px; }
+.tickets-wrap h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.tickets-wrap .sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.ticket-park-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.park-logo {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.park-logo.disney { background: rgba(0,120,212,0.15); }
+.park-logo.universal { background: rgba(255,107,53,0.15); }
+.park-name h4 { font-size: 15px; font-weight: 700; }
+.park-name p { font-size: 12px; color: var(--muted); }
+.ticket-option {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 16px; margin-bottom: 10px;
+  position: relative; overflow: hidden;
+}
+.ticket-option.recommended { border-color: var(--accent); }
+.rec-badge {
+  position: absolute; top: 0; right: 0;
+  background: var(--accent); color: #fff;
+  font-size: 10px; font-weight: 700; padding: 4px 10px;
+  border-bottom-left-radius: 12px;
+  letter-spacing: 0.5px;
+}
+.ticket-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
+.ticket-name { font-size: 14px; font-weight: 600; padding-right: 60px; }
+.ticket-name small { display: block; font-size: 11px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+.ticket-price { font-size: 20px; font-weight: 800; font-family: 'Syne', sans-serif; color: var(--green); white-space: nowrap; }
+.ticket-price small { display: block; font-size: 11px; color: var(--muted); font-weight: 400; text-align: right; }
+.ticket-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+.buy-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--accent); color: #fff; border: none;
+  border-radius: 12px; padding: 12px 20px;
+  font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+  cursor: pointer; width: 100%; text-decoration: none;
+  transition: opacity 0.2s;
+}
+.buy-btn:active { opacity: 0.85; }
+.buy-btn.secondary {
+  background: var(--card2); color: var(--text); border: 1px solid var(--border);
+}
+.buy-btn.purple { background: var(--accent2); }
+
+/* PROMO CODES */
+.promo-wrap { padding: 20px; }
+.promo-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 16px; margin-bottom: 12px;
+}
+.promo-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.promo-brand {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.promo-brand.disney { background: rgba(0,120,212,0.15); }
+.promo-brand.universal { background: rgba(255,107,53,0.15); }
+.promo-brand.reseller { background: rgba(0,212,138,0.12); }
+.promo-title { font-size: 14px; font-weight: 600; }
+.promo-sub { font-size: 12px; color: var(--muted); }
+.code-box {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card2); border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: 12px; padding: 12px 14px; margin-bottom: 10px;
+  cursor: pointer;
+}
+.code-text { font-family: 'Courier New', monospace; font-size: 17px; font-weight: 700; color: var(--accent); letter-spacing: 2px; flex: 1; }
+.copy-btn {
+  background: rgba(255,107,53,0.15); color: var(--accent);
+  border: none; border-radius: 8px; padding: 6px 12px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.promo-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.savings-badge {
+  display: inline-flex; align-items: center;
+  background: rgba(0,212,138,0.1); color: var(--green);
+  border-radius: 100px; padding: 3px 10px;
+  font-size: 11px; font-weight: 600; margin-bottom: 8px;
+}
+.status-active {
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--green); font-size: 11px; font-weight: 600;
+}
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+.tip-banner {
+  background: rgba(123,97,255,0.08);
+  border: 1px solid rgba(123,97,255,0.15);
+  border-radius: 16px; padding: 16px; margin-bottom: 16px;
+  display: flex; gap: 12px;
+}
+.tip-banner-icon { font-size: 22px; flex-shrink: 0; }
+.tip-banner h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: var(--accent2); }
+.tip-banner p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* BUDGET */
+.budget-wrap { padding: 20px; }
+.budget-total {
+  background: linear-gradient(135deg, rgba(255,107,53,0.12) 0%, rgba(123,97,255,0.12) 100%);
+  border: 1px solid rgba(255,107,53,0.2);
+  border-radius: 20px; padding: 24px; margin-bottom: 20px; text-align: center;
+}
+.budget-total p { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.budget-total .amount { font-size: 42px; font-weight: 800; font-family: 'Syne', sans-serif; color: var(--accent); }
+.budget-total .note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.budget-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.budget-item-left { display: flex; align-items: center; gap: 12px; }
+.budget-icon { font-size: 20px; width: 36px; text-align: center; }
+.budget-label { font-size: 14px; font-weight: 500; }
+.budget-sublabel { font-size: 12px; color: var(--muted); }
+.budget-cost { font-size: 16px; font-weight: 700; font-family: 'Syne', sans-serif; }
+.budget-cost.free { color: var(--green); }
+.save-banner {
+  background: rgba(0,212,138,0.08); border: 1px solid rgba(0,212,138,0.2);
+  border-radius: 16px; padding: 16px; display: flex; gap: 12px; align-items: flex-start; margin-top: 16px;
+}
+.save-banner-icon { font-size: 22px; flex-shrink: 0; }
+.save-banner h4 { font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 4px; }
+.save-banner p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* FLIGHT TAB */
+.flight-hero {
+  background: linear-gradient(135deg, #0a0a1a 0%, #0d1a2e 50%, #0a0a1a 100%);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px; padding: 24px; margin-bottom: 16px;
+  position: relative; overflow: hidden;
+}
+.flight-hero::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(123,97,255,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.conf-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
+.conf-num { font-family: 'Courier New', monospace; font-size: 22px; font-weight: 700; letter-spacing: 3px; color: var(--accent2); }
+.airline-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,95,200,0.15); border: 1px solid rgba(0,95,200,0.25); border-radius: 100px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: #4da6ff; }
+.route-display { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.airport-code { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; line-height: 1; }
+.airport-name { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.route-line { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.route-plane { font-size: 22px; }
+.route-dashes { width: 100%; height: 1px; background: repeating-linear-gradient(90deg, var(--muted) 0, var(--muted) 4px, transparent 4px, transparent 10px); opacity: 0.3; }
+.route-duration { font-size: 11px; color: var(--muted); }
+.flight-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fd-cell { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+.fd-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.fd-val { font-size: 15px; font-weight: 600; }
+.fd-val.green { color: var(--green); }
+.fd-val.accent { color: var(--accent); }
+.tracker-section { margin-bottom: 16px; }
+.track-btn { display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 14px; padding: 14px 20px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; text-decoration: none; margin-bottom: 10px; border: none; transition: opacity 0.2s; }
+.track-btn:active { opacity: 0.85; }
+.track-btn.primary { background: #005EB8; color: #fff; }
+.track-btn.flightaware { background: #FF6600; color: #fff; }
+.track-btn.flightradar { background: #E31E24; color: #fff; }
+.track-btn.ghost { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+.status-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+.status-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.checklist-item:last-child { border-bottom: none; padding-bottom: 0; }
+.check-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.check-label { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+.check-sub { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.return-flight-card { background: rgba(123,97,255,0.08); border: 1px solid rgba(123,97,255,0.2); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+.return-flight-card h4 { font-size: 13px; font-weight: 600; color: var(--accent2); margin-bottom: 12px; }
+.flight-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.flight-input { flex: 1; background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; color: var(--text); font-size: 14px; font-family: 'Courier New', monospace; letter-spacing: 1px; }
+.flight-input::placeholder { color: var(--muted); font-family: 'DM Sans', sans-serif; letter-spacing: 0; }
+.lookup-btn { background: var(--accent2); color: #fff; border: none; border-radius: 10px; padding: 10px 16px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.flight-result { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-top: 10px; font-size: 13px; color: var(--muted); display: none; }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 100px; padding: 12px 22px;
+  font-size: 13px; font-weight: 600; color: var(--green);
+  z-index: 999; transition: transform 0.3s ease;
+  white-space: nowrap; pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* CONFIRMATION BADGE */
+.conf-banner {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 14px 16px;
+}
+.conf-banner .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.conf-banner .val { font-size: 18px; font-weight: 700; font-family: 'Syne', sans-serif; letter-spacing: 1px; }
+.hotel-map-btn {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.2);
+  color: var(--accent); border-radius: 12px; padding: 12px 16px;
+  font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; margin-top: 12px;
+  justify-content: center;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="hotel-tag">📍 Hilton Buena Vista Palace · Confirmation #4741985137</div>
+  <h1>Orlando <span>Trip</span></h1>
+  <p class="header-sub">May 28 – May 31, 2026 · First Timer's Guide</p>
+  <div class="meta-chips">
+    <span class="chip"><span class="dot orange"></span>Post-Memorial Day — Lower Crowds</span>
+    <span class="chip"><span class="dot"></span>3 Park Days</span>
+    <span class="chip"><span class="dot purple"></span>Uber/Lyft Transport</span>
+  </div>
+</div>
+
+<div class="weather-strip">
+  <span class="weather-icon">☀️</span>
+  <div class="weather-text">
+    <strong>Orlando Weather · Late May</strong>
+    <span>85–90°F, partly cloudy. Stay hydrated. Pack sunscreen!</span>
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="switchTab('overview')">Overview</button>
+  <button class="nav-btn" onclick="switchTab('may28')">May 28</button>
+  <button class="nav-btn" onclick="switchTab('may29')">May 29</button>
+  <button class="nav-btn" onclick="switchTab('may30')">May 30</button>
+  <button class="nav-btn" onclick="switchTab('tickets')">Tickets</button>
+  <button class="nav-btn" onclick="switchTab('promos')">Promos 🔥</button>
+  <button class="nav-btn" onclick="switchTab('budget')">Budget</button>
+  <button class="nav-btn" onclick="switchTab('flight')">✈️ Flight</button>
+</nav>
+
+<!-- OVERVIEW -->
+<div id="tab-overview" class="section active">
+  <div class="overview-grid">
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Check-in</div>
+        <div class="stat-value accent">May 28</div>
+        <div style="font-size:12px;color:var(--muted)">~10 AM flight lands</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Check-out</div>
+        <div class="stat-value">May 31</div>
+        <div style="font-size:12px;color:var(--muted)">Early AM departure</div>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Est. Parks Cost</div>
+        <div class="stat-value green">~$263+</div>
+        <div style="font-size:12px;color:var(--muted)">Hollywood Studios + Universal</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Transport</div>
+        <div class="stat-value" style="font-size:18px;">Uber/Lyft</div>
+        <div style="font-size:12px;color:var(--muted)">Tap for rides</div>
+      </div>
+    </div>
+    <div class="alert-card">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-text">
+        <h4>Post-Holiday Weekend — Good News!</h4>
+        <p>You're going the week AFTER Memorial Day (May 25) — crowds drop significantly and prices are lower than the holiday weekend. Still buy tickets online in advance, but you're in a much better position than holiday travelers.</p>
+      </div>
+    </div>
+    <div>
+      <div class="section-title" style="padding:0;margin-bottom:12px">Your Hotel</div>
+      <div class="conf-banner">
+        <div class="label">Staying at</div>
+        <div class="val">Hilton Buena Vista Palace</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:4px;">1900 E Buena Vista Dr · Lake Buena Vista, FL</div>
+        <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">
+          <div style="font-size:11px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:4px 10px;color:var(--muted)">Conf: #4741985137</div>
+          <div style="font-size:11px;background:rgba(0,212,138,0.1);border:1px solid rgba(0,212,138,0.2);border-radius:8px;padding:4px 10px;color:var(--green)">Walking dist. to Disney Springs</div>
+        </div>
+        <a class="hotel-map-btn" href="https://www.google.com/maps/dir/?api=1&destination=1900+E+Buena+Vista+Dr+Lake+Buena+Vista+FL+32830" target="_blank">
+          📍 Get Directions to Hotel
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="section-title" style="padding:0;margin-bottom:12px">Uber / Lyft</div>
+      <div class="uber-card">
+        <h4>🚗 Getting Around Orlando</h4>
+        <p>Uber and Lyft are your best bet. The hotel is close to Disney — most rides are $8–25. Airport (MCO) to hotel is ~$35–50 and takes about 30 min.</p>
+        <a class="uber-btn" href="uber://" target="_blank">⚫ Open Uber</a>
+        <div style="height:10px"></div>
+        <a class="uber-btn lyft-btn" href="lyft://ridetype?id=lyft" target="_blank">🩷 Open Lyft</a>
+      </div>
+    </div>
+    <div>
+      <div class="section-title" style="padding:0;margin-bottom:12px">Quick Day Plan</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+        <div onclick="switchTab('may28')" style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;">
+          <div style="width:36px;height:36px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:14px;flex-shrink:0;">28</div>
+          <div><div style="font-size:14px;font-weight:600;">Universal Orlando</div><div style="font-size:12px;color:var(--muted);">Epic Universe · Harry Potter · Nintendo</div></div>
+          <div style="margin-left:auto;color:var(--muted);">›</div>
+        </div>
+        <div onclick="switchTab('may29')" style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;">
+          <div style="width:36px;height:36px;background:var(--accent2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:14px;flex-shrink:0;">29</div>
+          <div><div style="font-size:14px;font-weight:600;">Disney World + Sales Tour</div><div style="font-size:12px;color:var(--muted);">Hollywood Studios + tour at 11:45 AM</div></div>
+          <div style="margin-left:auto;color:var(--muted);">›</div>
+        </div>
+        <div onclick="switchTab('may30')" style="padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;">
+          <div style="width:36px;height:36px;background:var(--green);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:14px;flex-shrink:0;color:#000">30</div>
+          <div><div style="font-size:14px;font-weight:600;">Chill Day with Friend</div><div style="font-size:12px;color:var(--muted);">Lake Eola · Boat Tour · Winter Park · Nature</div></div>
+          <div style="margin-left:auto;color:var(--muted);">›</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAY 28 -->
+<div id="tab-may28" class="section">
+  <div class="timeline-wrap">
+    <div class="day-header">
+      <div class="day-num">28</div>
+      <div class="day-info">
+        <h3>Universal Orlando Day</h3>
+        <p>Thursday · Flight arrives ~10 AM</p>
+      </div>
+    </div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-dot tip"></div>
+        <div class="event-time">10:00 AM – 11:30 AM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">✈️ Land at MCO + Hotel</div>
+            <span class="event-tag tag-transit">Transit</span>
+          </div>
+          <div class="event-desc">Pick up your bags, then Uber/Lyft to the hotel (~30 min, ~$38–48). Check bags at the front desk if room isn't ready. Hotel is at 1900 E Buena Vista Dr.</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&origin=Orlando+International+Airport&destination=1900+E+Buena+Vista+Dr+Lake+Buena+Vista+FL+32830" target="_blank">📍 MCO → Hotel Directions</a>
+            <a class="uber-mini" href="uber://" target="_blank">🚗 Uber</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot park"></div>
+        <div class="event-time">12:00 PM – 9:00 PM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🎢 Universal — Epic Universe</div>
+            <span class="event-tag tag-park">Theme Park</span>
+          </div>
+          <div class="event-desc">Head straight to Epic Universe — Disney's newest rival and the hottest park in the country right now. Hit SUPER NINTENDO WORLD and How to Train Your Dragon Isle of Berk the moment you arrive. The Wizarding World of Harry Potter is a must. Stay till close for shorter wait times.</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&origin=1900+E+Buena+Vista+Dr+Lake+Buena+Vista+FL+32830&destination=Universal+Epic+Universe+Orlando+FL" target="_blank">📍 Get Directions</a>
+            <a class="uber-mini" href="uber://" target="_blank">🚗 Uber</a>
+          </div>
+          <div class="pro-tip">
+            <span class="pro-tip-icon">💡</span>
+            <span>Download the Universal Orlando app before you go — shows live wait times. Arrive early, lines are shortest 12–2 PM then again after 7 PM. Eat a counter-service lunch inside (~$15–20).</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot food"></div>
+        <div class="event-time">9:30 PM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🍽️ Dinner at CityWalk</div>
+            <span class="event-tag tag-food">Food</span>
+          </div>
+          <div class="event-desc">CityWalk is free to enter. Grab dinner at Antojitos Mexican (~$18), Voodoo Doughnut for dessert, or The Cowfish for sushi burgers. Head back to hotel after — it's your first day, rest up!</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=Universal+CityWalk+Orlando+FL" target="_blank">📍 CityWalk Directions</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MAY 29 -->
+<div id="tab-may29" class="section">
+  <div class="timeline-wrap">
+    <div class="day-header">
+      <div class="day-num" style="background:var(--accent2)">29</div>
+      <div class="day-info">
+        <h3>Disney World + Tour Day</h3>
+        <p>Friday · Hollywood Studios + Sales Tour</p>
+      </div>
+    </div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-dot park"></div>
+        <div class="event-time">7:30 AM – 11:00 AM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🎬 Hollywood Studios — Full Day</div>
+            <span class="event-tag tag-park">Theme Park</span>
+          </div>
+          <div class="event-desc">Head to Hollywood Studios first thing — go early for Millennium Falcon: Smugglers Run (new Mandalorian mission launching May 22!), then Star Wars: Rise of the Resistance. The reimagined Rock 'n' Roller Coaster starring the Muppets just opened too. Leave by 11 AM for your sales tour, then come back after.</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&origin=1900+E+Buena+Vista+Dr+Lake+Buena+Vista+FL+32830&destination=Hollywood+Studios+Disney+World+Orlando+FL" target="_blank">📍 Hotel → Hollywood Studios</a>
+            <a class="uber-mini" href="uber://" target="_blank">🚗 Uber</a>
+          </div>
+          <div class="pro-tip">
+            <span class="pro-tip-icon">⏰</span>
+            <span>Park opens at 9 AM (8 AM for hotel guests with Early Entry). Uber from hotel is ~10 min. Hit Rise of the Resistance and Millennium Falcon first — lines build fast. Come back after your tour for the afternoon/evening.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot tip"></div>
+        <div class="event-time">11:45 AM – 2:30 PM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🏢 Mandatory Sales Tour</div>
+            <span class="event-tag tag-transit">Required</span>
+          </div>
+          <div class="event-desc">11272 Desforges Ave, Orlando FL 32836. This is a timeshare presentation — your trade-off for the deeply discounted hotel rate. Plan 2–3 hours. Be polite, stay firm if not interested in buying, and you're free to go once it's done.</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=11272+Desforges+Ave+Orlando+FL+32836" target="_blank">📍 Directions to Tour</a>
+            <a class="uber-mini" href="uber://" target="_blank">🚗 Uber</a>
+          </div>
+          <div class="pro-tip">
+            <span class="pro-tip-icon">⚠️</span>
+            <span>Arrive on time — being late can forfeit your reservation perks. Bring a photo ID. Don't feel pressured to make any financial decisions on the spot.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot food"></div>
+        <div class="event-time">9:30 AM — Snack</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🌯 Ronto Wrap (Galaxy's Edge)</div>
+            <span class="event-tag tag-food">Must-Eat · ~$14</span>
+          </div>
+          <div class="event-desc">Ronto Roasters in Star Wars: Galaxy's Edge. Roasted pork, grilled pork sausage, tangy slaw, and peppercorn sauce wrapped in warm pita. One of the most beloved snacks at any Disney park. Note: Ronto Roasters closes at 3 PM, so grab this early!</div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot park"></div>
+        <div class="event-time">3:00 PM – 9:00 PM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🎬 Hollywood Studios — Return Visit</div>
+            <span class="event-tag tag-park">Theme Park</span>
+          </div>
+          <div class="event-desc">Head back to Hollywood Studios after the tour — your 1-day ticket is still valid. Catch everything you missed in the morning: Tower of Terror, Toy Story Land, Slinky Dog Dash, and the new Muppets Rock 'n' Roller Coaster. Stay for the nighttime Fantasmic! show.</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&origin=11272+Desforges+Ave+Orlando+FL+32836&destination=Hollywood+Studios+Disney+World+Orlando+FL" target="_blank">📍 Tour → Hollywood Studios</a>
+            <a class="uber-mini" href="uber://" target="_blank">🚗 Uber</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot food"></div>
+        <div class="event-time">4:00 PM — Lunch / Late Lunch</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🎭 Sci-Fi Dine-In Theater Restaurant</div>
+            <span class="event-tag tag-food">Iconic · ~$20–30</span>
+          </div>
+          <div class="event-desc">One of the most unique restaurants in all of Walt Disney World — you eat inside a fake 1950s drive-in theater in a convertible car while watching B-movie sci-fi clips. Order the Black &amp; White milkshake and a burger. Make a reservation on the My Disney Experience app before your trip — this one fills up fast!</div>
+          <div class="pro-tip"><span class="pro-tip-icon">📱</span><span>Book via My Disney Experience app now. If no reservation, show up at 4–5 PM and ask for walk-up availability.</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot food"></div>
+        <div class="event-time">7:00 PM — Snack</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🍪 Carrot Cake Cookie (Trolley Car Café)</div>
+            <span class="event-tag tag-food">Legendary Snack · ~$6</span>
+          </div>
+          <div class="event-desc">Hollywood Studios' most iconic treat — a whoopie pie-style sandwich with soft carrot cake layers and cream cheese frosting. Find it at Trolley Car Café (the Starbucks on Hollywood Blvd). Also grab the Jack Jack Num Num cookie — a thick chocolate chip cookie that's crispy outside and gooey inside.</div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot free"></div>
+        <div class="event-time">9:30 PM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">✨ Disney Springs Evening</div>
+            <span class="event-tag tag-free">FREE</span>
+          </div>
+          <div class="event-desc">Literally a 5 min walk or short Uber from your hotel. No ticket needed. Live music, shops, amazing atmosphere. Great way to end the night without spending much. If you're still hungry, grab <strong>Steak Frites from The Daily Poutine</strong> — fries topped with flank steak, chimichurri, and bearnaise sauce (~$16). One of the best 2026 Disney Springs bites.</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&origin=1900+E+Buena+Vista+Dr+Lake+Buena+Vista+FL+32830&destination=Disney+Springs+Orlando+FL" target="_blank">📍 Hotel → Disney Springs</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MAY 30 -->
+<div id="tab-may30" class="section">
+  <div class="timeline-wrap">
+    <div class="day-header">
+      <div class="day-num" style="background:var(--green);color:#000">30</div>
+      <div class="day-info">
+        <h3>Free Day + Prep to Leave</h3>
+        <p>Saturday · Friend joins · Chill &amp; scenic day</p>
+      </div>
+    </div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-dot free"></div>
+        <div class="event-time">9:00 AM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🌿 Lake Eola Park</div>
+            <span class="event-tag tag-free">FREE</span>
+          </div>
+          <div class="event-desc">Downtown Orlando's most beautiful park — circular walking path around a fountain, swan boats to rent (~$15), and great skyline shots. Easy, free, and a vibe totally different from the theme park chaos.</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&origin=1900+E+Buena+Vista+Dr+Lake+Buena+Vista+FL+32830&destination=Lake+Eola+Park+Orlando+FL" target="_blank">📍 Directions</a>
+            <a class="uber-mini" href="uber://" target="_blank">🚗 Uber (~$18)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot free"></div>
+        <div class="event-time">11:00 AM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🛍️ International Drive (I-Drive)</div>
+            <span class="event-tag tag-free">Free to Walk</span>
+          </div>
+          <div class="event-desc">Orlando's tourist strip. Walk into Dezerland Park — 800,000 sq ft indoor entertainment center with FREE admission. Pay only for what you want inside (karting $27, bowling $30/lane, etc). ICON Park is also free to stroll.</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=Dezerland+Park+Orlando+FL" target="_blank">📍 Dezerland Directions</a>
+            <a class="uber-mini" href="uber://" target="_blank">🚗 Uber</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot food"></div>
+        <div class="event-time">10:00 AM — Breakfast</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">☕ Breakfast near Lake Eola</div>
+            <span class="event-tag tag-food">Food · ~$10–15</span>
+          </div>
+          <div class="event-desc">Grab breakfast before or after Lake Eola. <strong>The Stubborn Mule</strong> on Pine St is a local favorite for brunch. Or swing by a nearby Panera/Starbucks to keep costs low. You're in downtown Orlando — lots of walkable options.</div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot food"></div>
+        <div class="event-time">1:00 PM — Lunch</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🍕 Lunch on I-Drive</div>
+            <span class="event-tag tag-food">Food · ~$12–20</span>
+          </div>
+          <div class="event-desc">After Dezerland Park, you've got great options on I-Drive. <strong>Shake Shack</strong> (ICON Park) is solid and affordable. <strong>Yard House</strong> has great apps and a massive beer selection. Or hit <strong>Dezerland's food hall</strong> for quick cheap bites inside.</div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot park"></div>
+        <div class="event-time">3:00 PM – 8:00 PM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🏊 Hotel Pool + Pack Up</div>
+            <span class="event-tag tag-free">FREE (Hotel)</span>
+          </div>
+          <div class="event-desc">Hilton Buena Vista has a great pool. Take the afternoon to decompress. Pack your bags tonight so you're ready for an early morning departure. You did a LOT — you earned this rest.</div>
+          <div class="pro-tip">
+            <span class="pro-tip-icon">⏰</span>
+            <span>Set your alarm for May 31 early. Request your Uber the night before if possible — use scheduled rides. Check out of the hotel the night before if your flight is super early.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot food"></div>
+        <div class="event-time">7:00 PM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">🍽️ Final Orlando Dinner</div>
+            <span class="event-tag tag-food">Food ~$20</span>
+          </div>
+          <div class="event-desc">Last night! Disney Springs is a quick Uber away and has great food options at all price points. Or grab something near the hotel on Buena Vista Dr. Don't stay out too late — early flight tomorrow!</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=Disney+Springs+Orlando+FL" target="_blank">📍 Disney Springs</a>
+            <a class="uber-mini" href="uber://" target="_blank">🚗 Uber</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot park"></div>
+        <div class="event-time">May 31 – Early AM</div>
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">✈️ Head to MCO Airport</div>
+            <span class="event-tag tag-transit">Departure</span>
+          </div>
+          <div class="event-desc">Uber/Lyft from hotel to MCO. Allow at least 90 minutes before your flight. MCO from the hotel is ~30 min drive.</div>
+          <div class="btn-row">
+            <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&origin=1900+E+Buena+Vista+Dr+Lake+Buena+Vista+FL+32830&destination=Orlando+International+Airport" target="_blank">📍 Hotel → MCO</a>
+            <a class="uber-mini" href="uber://" target="_blank">🚗 Uber (~$40)</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TICKETS -->
+<div id="tab-tickets" class="section">
+  <div class="tickets-wrap">
+    <h3>🎟️ Buy Your Tickets</h3>
+    <p class="sub">Buy online now — prices are date-based and Memorial Day weekend is expensive. Always cheaper online than at the gate.</p>
+
+    <div class="ticket-park-header">
+      <div class="park-logo universal">🎡</div>
+      <div class="park-name">
+        <h4>Universal Orlando Resort</h4>
+        <p>For May 28 · Epic Universe is the move</p>
+      </div>
+    </div>
+
+    <div class="ticket-option recommended">
+      <div class="rec-badge">BEST PICK</div>
+      <div class="ticket-top">
+        <div class="ticket-name">
+          1-Day Epic Universe
+          <small>SUPER NINTENDO WORLD, Harry Potter, HTTYD</small>
+        </div>
+        <div class="ticket-price">~$139<small>+ tax, starting</small></div>
+      </div>
+      <div class="ticket-desc">The newest, most immersive theme park in the world — just opened 2025. Book directly on Universal's site or via Undercover Tourist (save ~$10). Late May prices will be moderate — not peak holiday rates. Still book online for the cheapest rate.</div>
+      <a class="buy-btn" href="https://www.universalorlando.com/web/en/us/tickets-packages/park-tickets" target="_blank">🎟️ Buy at UniversalOrlando.com</a>
+      <div style="height:8px"></div>
+      <a class="buy-btn secondary" href="https://www.undercovertourist.com/orlando/universal-orlando-resort/" target="_blank">💰 Save ~$10 via Undercover Tourist</a>
+    </div>
+
+    <div class="ticket-option">
+      <div class="ticket-top">
+        <div class="ticket-name">
+          1-Day Universal Studios Florida
+          <small>Harry Potter, Minions, classic attractions</small>
+        </div>
+        <div class="ticket-price">~$124<small>+ tax, starting</small></div>
+      </div>
+      <div class="ticket-desc">The original Universal park. Great if you've already done Epic Universe or want a slightly cheaper option.</div>
+      <a class="buy-btn secondary" href="https://www.universalorlando.com/web/en/us/tickets-packages/park-tickets" target="_blank">Buy at UniversalOrlando.com</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="ticket-park-header">
+      <div class="park-logo disney">🏰</div>
+      <div class="park-name">
+        <h4>Walt Disney World Resort</h4>
+        <p>For May 29 · Hollywood Studios is the pick</p>
+      </div>
+    </div>
+
+    <div class="ticket-option recommended">
+      <div class="rec-badge">BEST VALUE</div>
+      <div class="ticket-top">
+        <div class="ticket-name">
+          1-Day Hollywood Studios
+          <small>Muppets Coaster + Star Wars + Mandalorian mission</small>
+        </div>
+        <div class="ticket-price">~$124<small>+ tax, starting</small></div>
+      </div>
+      <div class="ticket-desc">Hollywood Studios is the move for your trip. The new Muppets Rock 'n' Roller Coaster just launched, Millennium Falcon has a brand-new Mandalorian mission starting May 22, and Star Wars: Galaxy's Edge is incredible. Buy online — it's cheaper than the gate.</div>
+      <a class="buy-btn" href="https://disneyworld.disney.go.com/admission/tickets/" target="_blank">🎬 Buy at DisneyWorld.com</a>
+      <div style="height:8px"></div>
+      <a class="buy-btn secondary" href="https://www.undercovertourist.com/orlando/walt-disney-world-resort/" target="_blank">💰 Save ~$5–10 via Undercover Tourist</a>
+    </div>
+
+    <div style="background:rgba(0,212,138,0.08);border:1px solid rgba(0,212,138,0.2);border-radius:16px;padding:16px;margin-top:8px;">
+      <div style="font-size:13px;font-weight:600;color:var(--green);margin-bottom:6px;">💡 Pro Tip</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;">Your 1-day ticket is valid the entire day — so go in the morning before your sales tour, and come back after. You'll get a full day's worth of rides even with the break in the middle.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROMOS -->
+<div id="tab-promos" class="section">
+  <div class="promo-wrap">
+
+    <div class="tip-banner">
+      <div class="tip-banner-icon">🔥</div>
+      <div>
+        <h4>Active Deals — May 2026</h4>
+        <p>Disney and Universal rarely release public coupon codes directly — but authorized resellers like Undercover Tourist always beat gate prices. Tap to copy codes, then paste at checkout.</p>
+      </div>
+    </div>
+
+    <div class="promo-card">
+      <div class="promo-header">
+        <div class="promo-brand universal">🎡</div>
+        <div>
+          <div class="promo-title">Universal Orlando</div>
+          <div class="promo-sub">Try at universalorlando.com checkout</div>
+        </div>
+      </div>
+      <div class="savings-badge">💰 Reported Working</div>
+      <div class="status-active"><span class="status-dot"></span> Verified active May 2026</div>
+      <div class="code-box" onclick="copyCode('WISH25', this)">
+        <span class="code-text">WISH25</span>
+        <button class="copy-btn">Copy</button>
+      </div>
+      <div class="promo-desc">Vacation package discount — reported to give ~10% off select packages. Try at checkout. Community verified.</div>
+    </div>
+
+    <div class="promo-card">
+      <div class="promo-header">
+        <div class="promo-brand reseller">🐸</div>
+        <div>
+          <div class="promo-title">Undercover Tourist</div>
+          <div class="promo-sub">Best authorized reseller for both parks</div>
+        </div>
+      </div>
+      <div class="savings-badge">✅ Always discounted — no code needed</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.5;margin-top:8px;">Undercover Tourist is an official authorized reseller for Disney and Universal. They always beat gate prices — no promo code needed. Discounts are built in. They also offer:</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
+        <div style="background:var(--card2);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--muted);">🐭 <strong style="color:var(--text);">Disney 4-Park Ticket</strong> — includes FREE $20 Dining Dollars credit</div>
+        <div style="background:var(--card2);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--muted);">🎡 <strong style="color:var(--text);">Universal 1-Day</strong> — save ~$10–15 vs gate price</div>
+        <div style="background:var(--card2);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--muted);">💳 365-day money-back guarantee on Disney tickets</div>
+      </div>
+      <a class="buy-btn" href="https://www.undercovertourist.com" target="_blank" style="margin-top:14px;">Visit Undercover Tourist →</a>
+    </div>
+
+    <div class="promo-card">
+      <div class="promo-header">
+        <div class="promo-brand disney">🏰</div>
+        <div>
+          <div class="promo-title">Disney 4-Park Magic Ticket Deal</div>
+          <div class="promo-sub">Official Disney summer promo</div>
+        </div>
+      </div>
+      <div class="savings-badge">🎟️ Limited Time Summer Deal</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.5;margin-top:8px;">Disney's 4-Day, 4-Park Magic Ticket starts at <strong style="color:var(--text);">$109/day ($436 total)</strong> vs $140–189/day for standard tickets. Valid May 26 – Sept 26, 2026. No park reservation needed — just show up.</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
+        <div style="background:rgba(0,212,138,0.08);border:1px solid rgba(0,212,138,0.15);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--green);">Saves you ~$120+ per person vs standard tickets</div>
+      </div>
+      <a class="buy-btn" href="https://disneyworld.disney.go.com/special-offers/2026-summer-ticket-offer/" target="_blank" style="margin-top:14px;">Get the 4-Park Deal →</a>
+    </div>
+
+    <div class="promo-card">
+      <div class="promo-header">
+        <div class="promo-brand" style="background:rgba(255,107,53,0.1);">🔍</div>
+        <div>
+          <div class="promo-title">Find More Active Codes</div>
+          <div class="promo-sub">Check these daily for fresh deals</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+        <a class="buy-btn secondary" href="https://mousesavers.com" target="_blank">🐭 MouseSavers.com (Disney deals)</a>
+        <a class="buy-btn secondary" href="https://simplycodes.com/store/universalorlando.com" target="_blank">🎡 SimplyCodes — Universal codes</a>
+        <a class="buy-btn secondary" href="https://www.undercovertourist.com" target="_blank">🐸 Undercover Tourist (both parks)</a>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.5;">⚡ Pro tip: Disney almost never releases public promo codes for tickets. Your savings come from the 4-Park Magic Ticket deal + Undercover Tourist's built-in discounts. Universal occasionally drops codes — always try before purchasing.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BUDGET -->
+<div id="tab-budget" class="section">
+  <div class="budget-wrap">
+    <div class="budget-total">
+      <p>Estimated Total Trip Spend</p>
+      <div class="amount">~$400–530</div>
+      <div class="note">Excl. hotel (already booked) + flights · Saves ~$300 vs 4-Park</div>
+    </div>
+
+    <div class="section-title" style="padding:0;margin-bottom:12px;">Breakdown</div>
+
+    <div class="budget-item">
+      <div class="budget-item-left">
+        <div class="budget-icon">🎡</div>
+        <div>
+          <div class="budget-label">Universal 1-Day (Epic Universe)</div>
+          <div class="budget-sublabel">Buy via Undercover Tourist</div>
+        </div>
+      </div>
+      <div class="budget-cost">~$139</div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-left">
+        <div class="budget-icon">🏰</div>
+        <div>
+          <div class="budget-label">Disney 1-Day Hollywood Studios</div>
+          <div class="budget-sublabel">Star Wars + Muppets + Toy Story</div>
+        </div>
+      </div>
+      <div class="budget-cost">~$124</div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-left">
+        <div class="budget-icon">🚗</div>
+        <div>
+          <div class="budget-label">Uber/Lyft (full trip)</div>
+          <div class="budget-sublabel">MCO → Hotel, parks, return</div>
+        </div>
+      </div>
+      <div class="budget-cost">~$120–160</div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-left">
+        <div class="budget-icon">🍽️</div>
+        <div>
+          <div class="budget-label">Food (3 days)</div>
+          <div class="budget-sublabel">Snacks, meals, park + outside dining</div>
+        </div>
+      </div>
+      <div class="budget-cost">~$100–150</div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-left">
+        <div class="budget-icon">🛍️</div>
+        <div>
+          <div class="budget-label">Souvenirs / misc</div>
+          <div class="budget-sublabel">Park gifts, snacks, etc.</div>
+        </div>
+      </div>
+      <div class="budget-cost">~$30–60</div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-left">
+        <div class="budget-icon">✨</div>
+        <div>
+          <div class="budget-label">Disney Springs</div>
+          <div class="budget-sublabel">Free to enter</div>
+        </div>
+      </div>
+      <div class="budget-cost free">FREE</div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-left">
+        <div class="budget-icon">🌿</div>
+        <div>
+          <div class="budget-label">Lake Eola / I-Drive</div>
+          <div class="budget-sublabel">Dezerland free entry</div>
+        </div>
+      </div>
+      <div class="budget-cost free">FREE+</div>
+    </div>
+
+    <div class="save-banner">
+      <div class="save-banner-icon">💡</div>
+      <div>
+        <h4>Money-Saving Tips</h4>
+        <p>• Buy Disney 4-Park ticket instead of 2 single-day tickets — saves you ~$120+<br>• Undercover Tourist gives you $20 Dining Dollars free with Disney tickets<br>• Eat counter service at parks (avg $15) instead of table service ($40+)<br>• Pack a water bottle — theme parks allow sealed water in<br>• Use Uber Pool / Lyft Share when no rush to save 25%</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="tab-flight" class="section">
+  <div style="padding:20px;">
+
+    <div class="flight-hero">
+      <div class="conf-row">
+        <div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;">Confirmation</div>
+          <div class="conf-num">GYJFND</div>
+        </div>
+        <div class="airline-badge">&#9992; United Airlines</div>
+      </div>
+      <div class="route-display">
+        <div>
+          <div class="airport-code">EWR</div>
+          <div class="airport-name">Newark Liberty</div>
+        </div>
+        <div class="route-line">
+          <div class="route-plane">&#9992;</div>
+          <div class="route-dashes"></div>
+          <div class="route-duration">~2h 30m</div>
+        </div>
+        <div>
+          <div class="airport-code">MCO</div>
+          <div class="airport-name">Orlando Intl</div>
+        </div>
+      </div>
+      <div class="flight-details-grid">
+        <div class="fd-cell">
+          <div class="fd-label">EWR &rarr; MCO</div>
+          <div class="fd-val accent">May 28, 2026</div>
+        </div>
+        <div class="fd-cell">
+          <div class="fd-label">Arrives MCO</div>
+          <div class="fd-val">~10:00 AM</div>
+        </div>
+        <div class="fd-cell">
+          <div class="fd-label">Return Date</div>
+          <div class="fd-val">May 31 &rarr; EWR</div>
+        </div>
+        <div class="fd-cell">
+          <div class="fd-label">Airline</div>
+          <div class="fd-val green">United Airlines</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tracker-section">
+      <div class="section-title" style="padding:0;margin-bottom:12px;">Track Live Flight Status</div>
+      <a class="track-btn primary" href="https://www.united.com/en/us/flightstatus/confirmation/GYJFND" target="_blank">Track on United.com &mdash; Conf. GYJFND</a>
+      <a class="track-btn flightaware" href="https://www.flightaware.com/live/airline/UAL/origin/KEWR/destination/KMCO" target="_blank">FlightAware: EWR to MCO United Flights</a>
+      <a class="track-btn flightradar" href="https://www.flightradar24.com" target="_blank">Flightradar24 &mdash; Live Map</a>
+      <a class="track-btn ghost" href="https://www.united.com/en/us/manageres/reservation/retrieveRes?type=RECORD_LOCATOR&recordLocator=GYJFND" target="_blank">Manage Booking on United</a>
+    </div>
+
+    <div class="return-flight-card">
+      <h4>Find Your Flight Number</h4>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5;">Your confirmation GYJFND has your full itinerary on United.com. Once you know your flight number (e.g. UA 1234), enter it below for a direct live tracker link.</p>
+      <div class="flight-input-row">
+        <input class="flight-input" id="flightNumInput" placeholder="e.g. UA 1234" maxlength="10" />
+        <button class="lookup-btn" onclick="lookupFlight()">Track</button>
+      </div>
+      <div class="flight-result" id="flightResult"></div>
+    </div>
+
+    <div class="status-card">
+      <h4>Pre-Flight Checklist</h4>
+      <div class="checklist-item">
+        <div class="check-icon">&#128242;</div>
+        <div><div class="check-label">Check in online (24 hrs before)</div><div class="check-sub">United check-in opens 24 hours before departure. Do it on the app or united.com to get your boarding pass and pick a seat.</div></div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon">&#129523;</div>
+        <div><div class="check-label">Pack tonight (May 30)</div><div class="check-sub">You have an early morning May 31 departure. Get everything packed the night before so nothing is forgotten in the rush.</div></div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon">&#128663;</div>
+        <div><div class="check-label">Schedule your Uber to MCO</div><div class="check-sub">Use Uber's scheduled ride feature tonight for May 31 AM. Hotel to MCO is ~30 min. Allow 90 min before your flight.</div></div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon">&#9200;</div>
+        <div><div class="check-label">Arrive at MCO 90 min early</div><div class="check-sub">MCO security can move slowly on weekend mornings. TSA PreCheck lanes are faster if you have it.</div></div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon">&#128276;</div>
+        <div><div class="check-label">Enable flight notifications</div><div class="check-sub">Turn on push alerts in the United app for real-time gate changes, delays, and boarding calls.</div></div>
+      </div>
+    </div>
+
+    <div class="status-card">
+      <h4>MCO Airport Quick Guide</h4>
+      <div class="checklist-item">
+        <div class="check-icon">&#127970;</div>
+        <div><div class="check-label">United Airlines Terminal</div><div class="check-sub">United departs from <strong style="color:var(--text)">Terminal C at Newark (EWR)</strong> and arrives at <strong style="color:var(--text)">Terminal B at MCO</strong>. Always confirm on your boarding pass day-of.</div></div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon">&#127828;</div>
+        <div><div class="check-label">Food at MCO before boarding</div><div class="check-sub">MCO has solid airside options: Chick-fil-A, Shake Shack, and local Florida spots. Give yourself 20 min to grab something.</div></div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon">&#128228;</div>
+        <div><div class="check-label">Baggage allowance</div><div class="check-sub">United Basic Economy: 1 personal item free, carry-on may have a fee. Check your fare class on the United app before you fly.</div></div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon">&#128267;</div>
+        <div><div class="check-label">Charge everything tonight</div><div class="check-sub">Phone, earbuds, portable charger. You will want full battery for your return travel day.</div></div>
+      </div>
+    </div>
+
+    <div style="background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.15);border-radius:16px;padding:16px;">
+      <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">Day-Of Tracking &mdash; EWR &harr; MCO</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;">On your travel days open the United app and look up confirmation <strong style="color:var(--text);font-family:'Courier New',monospace;">GYJFND</strong> for real-time gate info, delays, and live position. <strong style="color:var(--text)">May 28:</strong> EWR Terminal C &rarr; MCO Terminal B. <strong style="color:var(--text)">May 31:</strong> MCO Terminal B &rarr; EWR Terminal C. FlightAware and Flightradar24 above show your plane live once airborne.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast">✅ Code copied!</div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  const tabs = ['overview','may28','may29','may30','tickets','promos','budget','flight'];
+  const btns = document.querySelectorAll('.nav-btn');
+  const idx = tabs.indexOf(name);
+  if(idx >= 0) btns[idx].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function lookupFlight() {
+  var raw = document.getElementById('flightNumInput').value.trim().toUpperCase().replace(/\s+/g,'');
+  var result = document.getElementById('flightResult');
+  if (!raw) {
+    result.style.display='block';
+    result.innerHTML='<span style="color:var(--accent)">Please enter a flight number first.</span>';
+    return;
+  }
+  var num = raw.replace(/^UA/,'');
+  var faUrl = 'https://www.flightaware.com/live/flight/UAL' + num;
+  var fr24Url = 'https://www.flightradar24.com/' + raw;
+  result.style.display = 'block';
+  result.innerHTML = '<div style="margin-bottom:8px;font-weight:600;color:var(--text);">Links for flight ' + raw + ':</div>'
+    + '<a href="' + faUrl + '" target="_blank" style="display:block;background:rgba(255,102,0,0.15);border:1px solid rgba(255,102,0,0.25);color:#ff9955;border-radius:10px;padding:10px 12px;margin-bottom:8px;text-decoration:none;font-weight:600;">Track ' + raw + ' on FlightAware</a>'
+    + '<a href="' + fr24Url + '" target="_blank" style="display:block;background:rgba(227,30,36,0.12);border:1px solid rgba(227,30,36,0.2);color:#ff6666;border-radius:10px;padding:10px 12px;text-decoration:none;font-weight:600;">Track ' + raw + ' on Flightradar24</a>';
+}
+
+function copyCode(code, el) {
+  navigator.clipboard.writeText(code).catch(() => {});
+  const toast = document.getElementById('toast');
+  toast.textContent = '✅ Copied "' + code + '" to clipboard!';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
